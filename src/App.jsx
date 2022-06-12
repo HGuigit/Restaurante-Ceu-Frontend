@@ -1,12 +1,15 @@
 import './App.css'
 
+import React from 'react'
+import TelaPrincipal from './components/TelaPrincipal'
+
 function App() {
 
 
   return (
-    <div className="App">
-      <h1>Resturante Céu 2000</h1>
-    </div>
+      <div className="App">
+        <TelaPrincipal />
+      </div>
   )
 }
 

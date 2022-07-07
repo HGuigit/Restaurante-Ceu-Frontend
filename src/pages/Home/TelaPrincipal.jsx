@@ -45,8 +45,8 @@ const TelaPrincipal = () => {
           <AppBar 
             position="static" 
             sx={{
-              bgcolor: 'colors.lightblack',
-              opacity: 0.5,
+              bgcolor: 'colors.red',
+              opacity: 1,
             }}
           >
             <Container maxWidth="xl">
@@ -145,7 +145,7 @@ const TelaPrincipal = () => {
 
         </main>
         <footer sx={{height: "10vh", flex: 1}}>
-          <DivFooter sx={{bgcolor:'colors.lightblack '}}>
+          <DivFooter >
             <h3>Trabalho de Sistemas Orientados a Objetos - Sistema de Restaurante</h3>
             <p>Céu 2000 &copy; 2022</p>
           </DivFooter>

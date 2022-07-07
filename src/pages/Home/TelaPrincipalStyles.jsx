@@ -24,7 +24,7 @@ const DivFooter = styled('div')(({ theme }) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.palette.colors.lightblack,
+    backgroundColor: theme.palette.colors.lightred,
     
 }))
 

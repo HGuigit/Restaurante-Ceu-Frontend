@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register"
 import appTheme from "./Theme/Theme"
+import DashBoard from './pages/DashBoard/DashBoard';
 
 // components
 //import Navbar from "./components/Navbar";
@@ -28,6 +29,7 @@ function App() {
               <Route path="/" element={<TelaPrincipal />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/dashboard" element={<DashBoard />} />
             </Routes>
           </div>
         </BrowserRouter>

@@ -9,6 +9,8 @@ const appTheme = createTheme({
             lightblue: '#89BBFE',
             lightblack: '#615D6C',
             thindarkblue: '#6F8AB7',
+            red: '#EA1D2C',
+            lightred: 'rgba(234, 29, 44, 0.7)',
         }
     }
 })   

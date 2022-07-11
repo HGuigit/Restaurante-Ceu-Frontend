@@ -1,0 +1,65 @@
+/* form styles */
+form {
+    max-width: 40%;
+    margin: 0 auto;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+label span {
+    margin-bottom: 0.3em;
+    font-weight: bold;
+    text-align: left;
+}
+
+input,
+textarea {
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0.8em 0em;
+    background-color: transparent;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #aaa;
+}
+
+.container {
+    height: 400px;
+}
+
+.btn {
+    background-color: hsl(118, 81%, 25%, 95%);
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 100%;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 20px;
+    font-size: 1em;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+
+
+.btn:hover {
+    background-color: #0f730c;
+    color: #fff;
+}
+
+
+
+.act {
+    display: flex; 
+    justify-content: center;
+}

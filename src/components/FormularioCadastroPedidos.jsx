@@ -73,3 +73,5 @@ const CadastroPedidosForm = () => {
   </div>
   )
 }
+
+export default CadastroPedidosForm(); 

@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
 
-import styles from './LoginForm.module.css'
+import styles from './Form.module.css'
 
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -41,7 +41,6 @@ const LoginForm = () => {
         </label>
         <div className={styles.act}>
           <button type="submit" className={styles.btn}>Login</button>
-          <Link to="/" className={styles.btn}>Ir para Cadastro</Link>
         </div>
       </form>
     </div>

@@ -1,12 +1,12 @@
 import {React, useState} from 'react'
 
-import styles from './LoginForm.module.css'
+import styles from './Form.module.css'
 
 import { Link, useNavigate } from 'react-router-dom'
 
-const CadastroFuncionarioForm = () => {
+const FormularioCadastroReceita = () => {
 
-  const [Nome, setNome] = useState('');
+  const [Ingredientes, setIngredientes] = useState('');
   const [TempoPreparo, setTempoPreparo] = useState('');
   const [Preco, setPreco] = useState('');
 
@@ -26,7 +26,7 @@ const CadastroFuncionarioForm = () => {
         <label>
           <span>TempoPreparo:</span>
           <input
-            type="TempoPreparo"
+            type="time"
             placeholder="Tempo de preparo"
             value={TempoPreparo}
             onChange={e => setTempoPreparo(e.target.value)}
@@ -35,7 +35,7 @@ const CadastroFuncionarioForm = () => {
         <label>
           <span>Preco:</span>
             <input 
-             type="Preco"
+             type="text"
              placeholder="Preço da receita"
              value={Preco}
              onChange={e => setPreco(e.target.value)}
@@ -44,7 +44,7 @@ const CadastroFuncionarioForm = () => {
         <label>
             <span>Ingredientes:</span>
               <input 
-               type="Ingredientes"
+               type="text"
                placeholder="Ingredientes da receita"
                value={Ingredientes}
                onChange={e => setIngredientes(e.target.value)}
@@ -53,10 +53,10 @@ const CadastroFuncionarioForm = () => {
         
         <div className={styles.act}>
           <button type="submit" className={styles.btn}>Confirmar Cadastro</button>
-          <Link to="/" className={styles.btn}> ???? </Link>
         </div>
       </form>
     </div>
   </div>
   )
 }
+export default FormularioCadastroReceita

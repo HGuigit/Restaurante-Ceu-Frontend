@@ -1,10 +1,10 @@
 import {React, useState} from 'react'
 
-import styles from './LoginForm.module.css'
+import styles from './Form.module.css'
 
 import { Link, useNavigate } from 'react-router-dom'
 
-const CadastroFuncionarioForm = () => {
+const FormularioCadastroFuncionario = () => {
 
   const [CPF, setCPF] = useState('');
   const [CarteiraTrabalho, setCarteiraTrabalho] = useState('');
@@ -28,43 +28,43 @@ const CadastroFuncionarioForm = () => {
         <label>
           <span>CPF:</span>
           <input
-            type="CPF"
+            type="text"
             placeholder="CPF do usuário"
             value={CPF}
             onChange={e => setCPF(e.target.value)}
           />
         </label>
         <label>
-          <span>CarteiraTrabalho:</span>
+          <span>Carteira de Trabalho:</span>
             <input 
-             type="CarteiraTrabalho"
+             type="text"
              placeholder="Número da carteira de trabalho"
              value={CarteiraTrabalho}
              onChange={e => setCarteiraTrabalho(e.target.value)}
             />
         </label>
         <label>
-            <span>Salario:</span>
+            <span>Salário:</span>
               <input 
-               type="Salario"
+               type="text"
                placeholder="Salario do funcionario"
                value={Salario}
                onChange={e => setSalario(e.target.value)}
               />
           </label>
           <label>
-            <span>CarteiraTrabalho:</span>
+            <span>Data de Contratação:</span>
               <input 
-               type="DataContratacao"
+               type="date"
                placeholder="Data de contratação"
                value={DataContratacao}
                onChange={e => setDataContratacao(e.target.value)}
               />
           </label>
           <label>
-            <span>Ocupacao:</span>
+            <span>Ocupação:</span>
               <input 
-               type="Ocupacao"
+               type="text"
                placeholder="Ocupação"
                value={Ocupacao}
                onChange={e => setOcupacao(e.target.value)}
@@ -72,10 +72,11 @@ const CadastroFuncionarioForm = () => {
           </label>
         <div className={styles.act}>
           <button type="submit" className={styles.btn}>Confirmar Cadastro</button>
-          <Link to="/" className={styles.btn}> ???? </Link>
         </div>
       </form>
     </div>
   </div>
   )
 }
+
+export default FormularioCadastroFuncionario

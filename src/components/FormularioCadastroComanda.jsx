@@ -1,10 +1,10 @@
 import {React, useState} from 'react'
 
-import styles from './LoginForm.module.css'
+import styles from './Form.module.css'
 
 import { Link, useNavigate } from 'react-router-dom'
 
-const CadastroFuncionarioForm = () => {
+const FormularioCadastroComanda = () => {
 
   const [Code, setCode] = useState('');
   
@@ -22,21 +22,22 @@ const CadastroFuncionarioForm = () => {
     <div className={styles.container}>
       <form onSubmit={handleSignIn}>
         <label>
-          <span>CodigoComanda:</span>
+          <span>Codigo da Comanda:</span>
           <input
-            type="Code"
+            type="text"
             placeholder="Codigo da comanda"
-            value={Codigo}
+            value={Code}
             onChange={e => setIngrediente(e.target.value)}
           />
         </label>
        
         <div className={styles.act}>
           <button type="submit" className={styles.btn}>Confirmar Cadastro</button>
-          <Link to="/" className={styles.btn}> ???? </Link>
         </div>
       </form>
     </div>
   </div>
   )
 }
+
+export default FormularioCadastroComanda

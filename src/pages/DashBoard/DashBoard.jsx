@@ -16,16 +16,25 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import HomeIcon from '@mui/icons-material/Home';
+import AddToHomeScreenIcon from '@mui/icons-material/AddToHomeScreen';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import FoodBankIcon from '@mui/icons-material/FoodBank';
+import LoginIcon from '@mui/icons-material/Login';
 
 import { useNavigate } from 'react-router-dom';
 
 // -------------------------------------------------------
 
 import LoginForm from '../../components/LoginForm';
+import FormularioCadastroComanda from '../../components/FormularioCadastroComanda';
+import FormularioCadastroFuncionario from '../../components/FormularioCadastroFuncionario';
+import FormularioCadastroIngrediente from '../../components/FormularioCadastroIngrediente';
+import FormularioCadastroReceita from '../../components/FormularioCadastroReceita';
+import FormularioCadastroPedidos from '../../components/FormularioCadastroPedidos';
 
 const drawerWidth = 240;
 
@@ -91,19 +100,51 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
+  // --------------------------------------- //
+
+  const [state, setState] = React.useState(<React.Fragment />);
+
+  // --------------------------------------- //
+
+  const handleCadastroComanda = () => {
+    setState(<FormularioCadastroComanda />);
+    //console.log("Cadastro comanda");
+  };
+
+  const handleCadastroFuncionario = () => {
+    setState(<FormularioCadastroFuncionario />);
+    //console.log("Cadastro funcionário");
+  };
+
+  const handleCadastroIngrediente = () => {
+    setState(<FormularioCadastroIngrediente />);
+    //console.log("Cadastro ingrediente");
+  };
+
+  const handleCadastroReceita = () => {
+    setState(<FormularioCadastroReceita />);
+    //console.log("Cadastro receita");
+  };
+
+  const handleCadastroPedidos = () => {
+    setState(<FormularioCadastroPedidos />);
+    //console.log("Cadastro pedidos");
+  };
+
   const handleLogin = () => {
-    console.log("login");
+    setState(<LoginForm />);
+    //console.log("login");
   };
-
-  const handleLogout = () => {
-    console.log("logout");
-  };
-
-  const handler = [handleLogin, handleLogout];
 
   const handleHome = () => {
     nav('/');
   };
+
+  const handler = [handleCadastroComanda, handleCadastroFuncionario, handleCadastroIngrediente, handleCadastroReceita, handleCadastroPedidos];
+  const handler2 = [handleLogin, handleHome];
+
+  const listIcons1 = [<AddToHomeScreenIcon />, <PersonAddIcon />, <RestaurantIcon />, <ReceiptIcon />, <FoodBankIcon />];
+  const listIcons2 = [<LoginIcon /> , <HomeIcon />];
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -145,11 +186,11 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['New Order', 'Ongoing Orders', 'Commands in use', 'Relatórios do Sistema'].map((text, index) => (
+          {['Cadastrar Comanda', 'Cadastrar Funcionário', 'Cadastrar Ingrediente', 'Cadastrar Receita', 'Cadastrar Pedido'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={handler[index]}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  { listIcons1[index] }
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -158,24 +199,11 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
         <List>
-          {['Login', 'Trash', 'Spam'].map((text, index) => (
+          {['Login', 'Home'].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={handler2[index]}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['Home'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton onClick={handleHome}>
-                <ListItemIcon>
-                  <HomeIcon />
+                  { listIcons2[index] }
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -185,7 +213,7 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-            <LoginForm />
+            { state }
       </Main>
     </Box>
   );

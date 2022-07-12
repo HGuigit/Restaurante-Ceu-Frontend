@@ -40,7 +40,7 @@ textarea::placeholder {
     text-align: center;
     cursor: pointer;
     border-radius: 10px;
-    width: 100%;
+    width: 50%;
     font-weight: bold;
     border: none;
     padding: 10px 15px;
@@ -48,6 +48,7 @@ textarea::placeholder {
     font-size: 1em;
     text-decoration: none;
     font-family: sans-serif;
+    margin-top: 15px;
 }
 
 

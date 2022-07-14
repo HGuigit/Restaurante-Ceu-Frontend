@@ -4,8 +4,17 @@ import styles from './Form.module.css'
 
 import { Link, useNavigate } from 'react-router-dom'
 
+// ------------------------------------------------------- //
+
+import axios from '../../services/api';
+
+// ------------------------------------------------------- //
+
+
 const FormularioCadastroFuncionario = () => {
 
+  const [Name, setName] = useState('');
+  const [UrlImagem, setUrlImage] = useState('');
   const [CPF, setCPF] = useState('');
   const [CarteiraTrabalho, setCarteiraTrabalho] = useState('');
   const [Salario, setSalario] = useState('');
@@ -14,9 +23,38 @@ const FormularioCadastroFuncionario = () => {
 
   const nav = useNavigate();
 
-  async function handleSignIn(e) {
+  async function handleNewUser(e) {
 
     e.preventDefault();
+    
+    const funcionario = {
+      "nome": Name,
+      "cpf": CPF,
+      "salario": parseFloat(Salario),
+      "carteiraTrabalho":CarteiraTrabalho,
+      "dataContratacao": DataContratacao,
+      "ocupacao": Ocupacao ,
+      "urlImg": UrlImagem
+    } 
+
+    
+
+    try {
+
+      const response = await axios.post('/funcionario/', JSON.stringify(funcionario));
+      alert("Cadastro concluido!");
+      setCPF('');
+      setCarteiraTrabalho('');
+      setSalario('');
+      setDataContratacao('');
+      setOcupacao('');
+
+    } catch (error) {
+      console.log(error);
+      alert('Erro ao cadastrar o funcionário!');
+
+    }
+
 
   }
 
@@ -24,7 +62,25 @@ const FormularioCadastroFuncionario = () => {
     <div>
     <h1>Cadastro Funcionario</h1>
     <div className={styles.container}>
-      <form onSubmit={handleSignIn}>
+      <form onSubmit={handleNewUser}>
+       <label>
+          <span>Nome:</span>
+          <input
+            type="text"
+            placeholder="Nome do usuário"
+            value={Name}
+            onChange={e => setName(e.target.value)}
+          />
+        </label>
+        <label>
+            <span>Foto do funcionário:</span>
+              <input 
+               type="text"
+               placeholder="Url da imagem"
+               value={UrlImagem}
+               onChange={e => setUrlImage(e.target.value)}
+              />
+          </label>
         <label>
           <span>CPF:</span>
           <input
@@ -46,7 +102,7 @@ const FormularioCadastroFuncionario = () => {
         <label>
             <span>Salário:</span>
               <input 
-               type="text"
+               type="number"
                placeholder="Salario do funcionario"
                value={Salario}
                onChange={e => setSalario(e.target.value)}

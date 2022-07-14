@@ -10,7 +10,7 @@ const FormularioCadastroIngrediente = () => {
   
   const nav = useNavigate();
 
-  async function handleSignIn(e) {
+  async function handleNewIngridient(e) {
 
     e.preventDefault();
 
@@ -20,14 +20,14 @@ const FormularioCadastroIngrediente = () => {
     <div>
     <h1>Cadastro Ingrediente</h1>
     <div className={styles.container}>
-      <form onSubmit={handleSignIn}>
+      <form onSubmit={handleNewIngridient}>
         <label>
           <span>Nome do ingrediente:</span>
           <input
             type="text"
             placeholder="Nome do ingrediente"
             value={Nome}
-            onChange={e => setIngrediente(e.target.value)}
+            onChange={e => setNome(e.target.value)}
           />
         </label>
        

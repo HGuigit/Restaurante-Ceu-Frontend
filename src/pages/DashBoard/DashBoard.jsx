@@ -21,24 +21,34 @@ import HomeIcon from '@mui/icons-material/Home';
 import AddToHomeScreenIcon from '@mui/icons-material/AddToHomeScreen';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import FoodBankIcon from '@mui/icons-material/FoodBank';
 import LoginIcon from '@mui/icons-material/Login';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import LunchDiningIcon from '@mui/icons-material/LunchDining';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 import { useNavigate } from 'react-router-dom';
 
-// -------------------------------------------------------
+// ------------------------------------------------------- //
 
-import LoginForm from '../../components/LoginForm';
-import FormularioCadastroComanda from '../../components/FormularioCadastroComanda';
-import FormularioCadastroFuncionario from '../../components/FormularioCadastroFuncionario';
-import FormularioCadastroIngrediente from '../../components/FormularioCadastroIngrediente';
-import FormularioCadastroReceita from '../../components/FormularioCadastroReceita';
-import FormularioCadastroPedidos from '../../components/FormularioCadastroPedidos';
+import LoginForm from '../../components/Forms/LoginForm';
+import FormularioCadastroComanda from '../../components/Forms/FormularioCadastroComanda';
+import FormularioCadastroFuncionario from '../../components/Forms/FormularioCadastroFuncionario';
+import FormularioCadastroIngrediente from '../../components/Forms/FormularioCadastroIngrediente';
+import FormularioCadastroReceita from '../../components/Forms/FormularioCadastroReceita';
+import FormularioCadastroPedidos from '../../components/Forms/FormularioCadastroPedidos';
+
+// ------------------------------------------------------- //
+
+import RecipeCard from '../../components/ViewCards/RecipeCard';
+import FuncionarioCard from '../../components/ViewCards/FuncionarioCard';
+
+// ------------------------------------------------------- //
+
+import axios from '../../services/api';
+
+// ------------------------------------------------------- //
 
 const drawerWidth = 240;
-
-
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -126,10 +136,76 @@ export default function PersistentDrawerLeft() {
     //console.log("Cadastro receita");
   };
 
-  const handleCadastroPedidos = () => {
-    setState(<FormularioCadastroPedidos />);
+  async function handleCadastroPedidos (e) {
+
+    e.preventDefault();
+
+    let comandas = [];
+    let receitas = [];
+    let funcionarios = [];
+
+    try {
+
+      comandas = await axios.get('/comanda/');
+      receitas = await axios.get('/receita/');
+      funcionarios = await axios.get('/funcionario/');
+
+    } catch (error) {
+
+      alert('Erro ao cadastrar pedido!');
+
+    }
+    
+    if (comandas.data.length === 0 || receitas.data.length === 0 || funcionarios.data.length === 0)
+    {
+      setState(<React.Fragment/>);
+    } else {
+      setState(<FormularioCadastroPedidos comandas={comandas.data} receitas={receitas.data} funcionarios={funcionarios.data}/>);
+    }
+
     //console.log("Cadastro pedidos");
   };
+
+  async function handleViewRecipes(e) {
+
+    e.preventDefault();
+    
+    let receitas = [];
+
+    try {
+
+      receitas = await axios.get('/receita/');
+
+    } catch (error) {
+
+      alert('Erro ao carregar Receitas!');
+
+    }
+
+    setState(<RecipeCard receitas={ receitas }/>);
+    //console.log("Ver Receitas");
+  };
+
+  async function handleViewWorkers(e) {
+
+    e.preventDefault();
+    
+    let funcionarios = [];
+
+    try {
+
+      funcionarios = await axios.get('/funcionario/');
+
+    } catch (error) {
+
+      alert('Erro ao carregar funcionarios!');
+
+    }
+
+    setState(<FuncionarioCard funcionarios={ funcionarios }/>);
+    //console.log("Ver Receitas");
+  };
+
 
   const handleLogin = () => {
     setState(<LoginForm />);
@@ -141,10 +217,12 @@ export default function PersistentDrawerLeft() {
   };
 
   const handler = [handleCadastroComanda, handleCadastroFuncionario, handleCadastroIngrediente, handleCadastroReceita, handleCadastroPedidos];
-  const handler2 = [handleLogin, handleHome];
+  const handler2 = [handleViewRecipes, handleViewWorkers];
+  const handler3 = [handleLogin, handleHome];
 
-  const listIcons1 = [<AddToHomeScreenIcon />, <PersonAddIcon />, <RestaurantIcon />, <ReceiptIcon />, <FoodBankIcon />];
-  const listIcons2 = [<LoginIcon /> , <HomeIcon />];
+  const listIcons1 = [<AddToHomeScreenIcon />, <PersonAddIcon />, <RestaurantIcon />, <MenuBookIcon />, <LunchDiningIcon />];
+  const listIcons2 = [<FormatListBulletedIcon />, <FormatListBulletedIcon />];
+  const listIcons3 = [<LoginIcon /> , <HomeIcon />];
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -199,11 +277,24 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
         <List>
-          {['Login', 'Home'].map((text, index) => (
+          {['Ver Receitas', 'Ver Funcionários'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={handler2[index]}>
                 <ListItemIcon>
                   { listIcons2[index] }
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Login', 'Home'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton onClick={handler3[index]}>
+                <ListItemIcon>
+                  { listIcons3[index] }
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>

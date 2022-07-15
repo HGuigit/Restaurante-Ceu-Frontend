@@ -19,14 +19,14 @@ const Div2 = styled('div') ({
 });
 
 const DivFooter = styled('div')(({ theme }) => ({
-    color: 'white',
+    color: '#fff5d7',
     fontWeight: 'bold',
     margin: "0 0",
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "15%",
+    flexDirection: "row",
+    alignItems: "space-between",
+    justifyContent: "space-between",
+    flex:1,
     backgroundColor: theme.palette.colors.default_dark
 }))
 

@@ -9,8 +9,6 @@ import Grid from '@mui/material/Grid';
 export default function RecipeReviewCard({ receitas }) {
   const [recipes, setRecipes] = React.useState(receitas.data ? receitas.data : []);
 
-  console.log(recipes.length);
-
   return (
       <Grid container spacing={2}>
         {recipes.length !== 0 ? 

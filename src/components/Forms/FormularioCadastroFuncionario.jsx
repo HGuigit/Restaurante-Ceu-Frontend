@@ -48,6 +48,8 @@ const FormularioCadastroFuncionario = () => {
       setSalario('');
       setDataContratacao('');
       setOcupacao('');
+      setUrlImage('');
+      setName('');
 
     } catch (error) {
       console.log(error);

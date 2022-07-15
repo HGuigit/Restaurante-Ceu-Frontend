@@ -41,6 +41,7 @@ import FormularioCadastroPedidos from '../../components/Forms/FormularioCadastro
 
 import RecipeCard from '../../components/ViewCards/RecipeCard';
 import FuncionarioCard from '../../components/ViewCards/FuncionarioCard';
+import OrderCard from '../../components/ViewCards/OrderCard';
 
 // ------------------------------------------------------- //
 
@@ -100,7 +101,7 @@ export default function PersistentDrawerLeft() {
 
   const nav = useNavigate();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -206,6 +207,26 @@ export default function PersistentDrawerLeft() {
     //console.log("Ver Receitas");
   };
 
+  async function handleViewOrders(e) {
+
+    e.preventDefault();
+    
+    let pedidos = [];
+
+    try {
+
+      pedidos = await axios.get('/pedido/');
+
+    } catch (error) {
+
+      alert('Erro ao carregar pedidos!');
+
+    }
+
+    setState(<OrderCard pedidos={ pedidos }/>);
+    //console.log("Ver Pedidos");
+  };
+
 
   const handleLogin = () => {
     setState(<LoginForm />);
@@ -217,11 +238,11 @@ export default function PersistentDrawerLeft() {
   };
 
   const handler = [handleCadastroComanda, handleCadastroFuncionario, handleCadastroIngrediente, handleCadastroReceita, handleCadastroPedidos];
-  const handler2 = [handleViewRecipes, handleViewWorkers];
+  const handler2 = [handleViewRecipes, handleViewWorkers, handleViewOrders];
   const handler3 = [handleLogin, handleHome];
 
   const listIcons1 = [<AddToHomeScreenIcon />, <PersonAddIcon />, <RestaurantIcon />, <MenuBookIcon />, <LunchDiningIcon />];
-  const listIcons2 = [<FormatListBulletedIcon />, <FormatListBulletedIcon />];
+  const listIcons2 = [<FormatListBulletedIcon />, <FormatListBulletedIcon />, <FormatListBulletedIcon />];
   const listIcons3 = [<LoginIcon /> , <HomeIcon />];
 
   return (
@@ -277,7 +298,7 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
         <List>
-          {['Ver Receitas', 'Ver Funcionários'].map((text, index) => (
+          {['Ver Receitas', 'Ver Funcionários', 'Ver Pedidos'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={handler2[index]}>
                 <ListItemIcon>

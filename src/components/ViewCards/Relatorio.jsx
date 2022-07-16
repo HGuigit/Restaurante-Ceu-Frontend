@@ -21,8 +21,6 @@ function calculateHeaderMetrics(pedidos, receitas, funcionarios, inicio, fim){
     let mediaAvaliacoes = 0;
     let somaAvaliacoes = 0;
 
-    console.log(pedidos);
-
     pedidos.forEach((pedido) => {
         if(pedido.dataHora != null){
             if(new Date(pedido.dataHora) > inicio && new Date(pedido.dataHora) < fim){
@@ -52,6 +50,60 @@ function calculateHeaderMetrics(pedidos, receitas, funcionarios, inicio, fim){
         mediaAvaliacoes
     }
 
+}
+
+function calculateFuncionarioRating(pedidos, funcionarios, inicio, fim){
+
+    let funcionariosMapRating = new Map();
+    let funcionariosNameMap = new Map();
+
+    funcionarios.forEach((funcionario) => {
+        funcionariosMapRating.set(funcionario.idFuncionario, 0);
+        funcionariosNameMap.set(funcionario.idFuncionario, funcionario.nome);
+    })
+    funcionariosMapRating.forEach((value, key) => {
+        let counterPedidos = 0;
+        pedidos.forEach((pedido) => {
+            if(new Date(pedido.dataHora) > inicio && new Date(pedido.dataHora) < fim){
+                if(pedido.funcionarioId.idFuncionario == key){
+                    counterPedidos += 1;
+                    funcionariosMapRating.set(key, funcionariosMapRating.get(key) + pedido.avaliacaoAtendimento)
+                } 
+            }
+        })
+        funcionariosMapRating.set(key, funcionariosMapRating.get(key) / counterPedidos)
+    })
+
+    //cleaning hash table
+    funcionariosMapRating.forEach((value, key) => {
+        if(isNaN(value)){
+            funcionariosMapRating.set(key, 0);
+        }
+    })
+    let arrayNomes = []
+    let arrayValues = []
+    funcionariosNameMap.forEach((value, key) => {arrayNomes.push(value)})
+    funcionariosMapRating.forEach((value, key) => {arrayValues.push(value)}) 
+
+    console.log(arrayNomes);
+    console.log(arrayValues);
+    return(
+        {
+            nomeFunc: arrayNomes, 
+            Rating: arrayValues
+        }
+    )
+}
+
+
+function calculateGraphMetrics(pedidos, receitas, funcionarios, inicio, fim){
+
+
+let funcionarioRating = calculateFuncionarioRating(pedidos, funcionarios, inicio, fim)
+
+return({
+    funcionarioRating
+})
 
 }
 
@@ -74,12 +126,16 @@ const [inicio, setInicio] = React.useState(dataAtual)
 const [fim, setFim] = React.useState(new Date())
 
 const [headerMetrics, setHeaderMetrics] = React.useState({});
+const [graphMetrics, setGraphMetris] = React.useState(null);
+
+console.log(graphMetrics);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 useEffect(() => {
     setHeaderMetrics(calculateHeaderMetrics(pedidos, receitas, funcionarios, inicio, fim))
+    setGraphMetris(calculateGraphMetrics(pedidos, receitas, funcionarios, inicio, fim))
 }, [inicio, fim])
 
 
@@ -133,7 +189,7 @@ return(
                     <span >Média avaliações:</span> 
                     <span style={{marginRight: 5}}>{headerMetrics.mediaAvaliacoes}/5 <StarIcon sx={{color:'black', fontSize: 15, marginLeft: 0.2, marginTop:1}}/> </span> 
              </ListItem>
-             <ListItem divider={true} sx={{display:"flex", justifyContent:"space-between"}}>
+             <ListItem  sx={{display:"flex", justifyContent:"space-between"}}>
                     <span >Soma total do salário dos funcionários contratados:</span> 
                     <span style={{marginRight: 15}}>R${parseFloat(headerMetrics.somaTotalSalarios)}</span> 
              </ListItem>

@@ -9,6 +9,7 @@ import { List, ListItem, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { useEffect } from 'react';
 import { color } from '@mui/system';
+import getInitColorSchemeScript from '@mui/system/cssVars/getInitColorSchemeScript';
 
 
 function calculateHeaderMetrics(pedidos, receitas, funcionarios, inicio, fim){
@@ -37,8 +38,10 @@ function calculateHeaderMetrics(pedidos, receitas, funcionarios, inicio, fim){
     funcionarios.forEach((funcionarios) => {
         somaTotalSalarios += funcionarios.salario
     })
+    
+    let diffMs = Math.abs(fim - inicio)
 
-    mediaPedidosFeitosDia = quantidadePedidosFeitos / (fim.getDay() - inicio.getDay())
+    mediaPedidosFeitosDia = (quantidadePedidosFeitos / (diffMs/(1000*60*60*24))).toFixed(2)
     mediaAvaliacoes = parseFloat(somaAvaliacoes / quantidadePedidosFeitos).toFixed(2);
 
     return {

@@ -25,6 +25,9 @@ import LoginIcon from '@mui/icons-material/Login';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+import PeopleIcon from '@mui/icons-material/People';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -42,6 +45,7 @@ import FormularioCadastroPedidos from '../../components/Forms/FormularioCadastro
 import RecipeCard from '../../components/ViewCards/RecipeCard';
 import FuncionarioCard from '../../components/ViewCards/FuncionarioCard';
 import OrderCard from '../../components/ViewCards/OrderCard';
+import Relatorio from '../../components/ViewCards/Relatorio'
 
 // ------------------------------------------------------- //
 
@@ -227,6 +231,28 @@ export default function PersistentDrawerLeft() {
     //console.log("Ver Pedidos");
   };
 
+  async function handleViewReport(){
+
+    let pedidos = [];
+    let funcionarios = [];
+    let receitas = [];
+
+    try{
+
+      pedidos = await axios.get('/pedido/')
+      receitas = await axios.get('/receita/');
+      funcionarios = await axios.get('/funcionario/');
+    
+    }catch (error) {
+
+      alert('Error ao mostrar relatório.');
+    }
+
+    setState(<Relatorio data={{pedidos: pedidos.data, receitas: receitas.data, funcionarios: funcionarios.data}}/>)
+
+
+  }
+
 
   const handleLogin = () => {
     setState(<LoginForm />);
@@ -238,11 +264,11 @@ export default function PersistentDrawerLeft() {
   };
 
   const handler = [handleCadastroComanda, handleCadastroFuncionario, handleCadastroIngrediente, handleCadastroReceita, handleCadastroPedidos];
-  const handler2 = [handleViewRecipes, handleViewWorkers, handleViewOrders];
+  const handler2 = [handleViewRecipes, handleViewWorkers, handleViewOrders, handleViewReport];
   const handler3 = [handleLogin, handleHome];
 
   const listIcons1 = [<AddToHomeScreenIcon />, <PersonAddIcon />, <RestaurantIcon />, <MenuBookIcon />, <LunchDiningIcon />];
-  const listIcons2 = [<FormatListBulletedIcon />, <FormatListBulletedIcon />, <FormatListBulletedIcon />];
+  const listIcons2 = [<FormatListBulletedIcon />, <PeopleIcon />, <AssignmentIcon />, <AnalyticsIcon />];
   const listIcons3 = [<LoginIcon /> , <HomeIcon />];
 
   return (
@@ -283,7 +309,11 @@ export default function PersistentDrawerLeft() {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-        <Divider />
+        <Divider/>
+          <Typography mt={1} mb={1}>
+            Cadastrar:
+          </Typography>
+        <Divider/>
         <List>
           {['Cadastrar Comanda', 'Cadastrar Funcionário', 'Cadastrar Ingrediente', 'Cadastrar Receita', 'Cadastrar Pedido'].map((text, index) => (
             <ListItem key={text} disablePadding>
@@ -296,9 +326,13 @@ export default function PersistentDrawerLeft() {
             </ListItem>
           ))}
         </List>
-        <Divider />
+        <Divider/>
+          <Typography mt={1} mb={1}>
+            Inspecionar:
+          </Typography>
+        <Divider/>
         <List>
-          {['Ver Receitas', 'Ver Funcionários', 'Ver Pedidos'].map((text, index) => (
+          {['Ver Receitas', 'Ver Funcionários', 'Ver Pedidos', 'Relatórios'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={handler2[index]}>
                 <ListItemIcon>

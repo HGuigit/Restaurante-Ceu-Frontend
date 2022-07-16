@@ -24,6 +24,8 @@ import {  CardActionArea, CardActions } from '@mui/material';
 
 import axios from '../../services/api';
 
+import { useNavigate } from 'react-router-dom';
+
 
 import Icon from '@mui/material/Icon';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -41,7 +43,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 // Arquivos de config css
 import TelaPrincipalStyles from './TelaPrincipalStyles';
 
-const pages = ['Cardápio', 'Equipe', 'Login' , 'Cadastro'];
+const pages = ['Cardápio', 'Equipe', 'Login' , 'Cadastro', 'Funcionalidades'];
 
 
 const TelaPrincipal = () => {
@@ -51,6 +53,8 @@ const TelaPrincipal = () => {
   const [funcionarios, setFuncionarios] = React.useState([]);
 
   const { Div, Div2, DivFooter } = TelaPrincipalStyles();
+
+  const nav = useNavigate(); 
 
 
   async function getFuncionarios(){
@@ -70,7 +74,7 @@ const TelaPrincipal = () => {
     const shuffledArrayFunc = funcionarios.data.sort(() => 0.5 - Math.random());
     let selected = shuffledArrayFunc.slice(0, 4);
     
-    console.log(selected)
+    // console.log(selected)
 
     setFuncionarios(selected);
 
@@ -89,6 +93,34 @@ const TelaPrincipal = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+
+  const handleCardapio = () => {
+    // console.log('Cardapio');
+    handleCloseNavMenu();
+  };
+
+  const handleEquipe = () => {
+    // console.log('Equipe');
+    handleCloseNavMenu();
+  };
+
+  const handleLogin = () => {
+    // console.log('Login');
+    handleCloseNavMenu();
+  };
+
+  const handleCadastro = () => {
+    // console.log('Cadastro');
+    handleCloseNavMenu();
+  };
+
+  const handleFuncionalidades = () => {
+    // console.log('Funcionalidades');
+    nav('/dashboard');
+  };
+
+  const handler = [handleCardapio, handleEquipe, handleLogin, handleCadastro, handleFuncionalidades];
 
 
   const itemData = [
@@ -217,8 +249,8 @@ const TelaPrincipal = () => {
                       display: { xs: 'block', md: 'none' },
                     }}
                   >
-                    {pages.map((page) => (
-                      <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    {pages.map((page, index) => (
+                      <MenuItem key={page} onClick={handler[index]}>
                         <Typography sx={{color: (theme) => theme.palette.colors.black}} textAlign="justify">{page}</Typography>
                       </MenuItem>
                     ))}
@@ -244,10 +276,10 @@ const TelaPrincipal = () => {
                   Pedacinho do Céu
                 </Typography>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                  {pages.map((page) => (
+                  {pages.map((page, index) => (
                     <Button
                       key={page}
-                      onClick={handleCloseNavMenu}
+                      onClick={handler[index]}
                       sx={{ my: 2, display: 'block', color: (theme) => theme.palette.colors.begie}}
                     >
                       {page}

@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 export default function OrderCard ({ pedidos }) {
   const [orders, setOrders] = React.useState(pedidos.data ? pedidos.data : []);
@@ -16,10 +17,10 @@ export default function OrderCard ({ pedidos }) {
             let somaPedido = 0;
             let data = new Date(order.dataHora)
             return(
-            <Grid item xs={3} mb={3} key={index}>
-              <Card sx={{ maxWidth: 400, height: 400 ,boxSizing: 'border-box' }}>
+            <Grid item xs={3} mb={3} key={index} >
+              <Card sx={{ maxWidth: 400, height: 400 ,boxSizing: 'border-box' , overflowY:'auto'}}>
                 <CardHeader
-                  title={'Pedido ' + index}
+                  title={'Pedido ' + (index + 1 )}
                   sx={{fontWeight:"bolder"}}
                 />
                 <CardContent>
@@ -32,20 +33,20 @@ export default function OrderCard ({ pedidos }) {
                       Funcionário: {order.funcionarioId.nome} 
                     </Typography>
                     <Typography variant="body2" color="text.secondary" mb={1}>
-                      Data do Pedido: {data.getDay()+1}-{data.getMonth()+1}-{data.getFullYear()} / {data.getHours()}:{data.getMinutes()}
+                      Data do Pedido: {data.getDate()+1}-{data.getMonth()+1}-{data.getFullYear()} / {data.getUTCHours()}:{data.getMinutes()}
                     </Typography>
                     </div>
-                    <div>
-                    <h4>Receitas:</h4>
-                    <Typography component={'span'}>
-                      {order.receitas.map((pedido, index) => {
-                        somaPedido = somaPedido + pedido.preco;
-                        return(
-                            <p key={index}>{pedido.nome}</p>
-                        )
-                      })}
-                    </Typography>
-                    </div>
+                    <Box >
+                      <h4>Receitas:</h4>
+                      <Typography component={'span'}>
+                        {order.receitas.map((pedido, index) => {
+                          somaPedido = somaPedido + pedido.preco;
+                          return(
+                              <p key={index}>{pedido.nome}</p>
+                          )
+                        })}
+                      </Typography>
+                    </Box>
                     <div>
                       <Typography fontWeight='bold'>Valor do pedido: R${parseFloat(somaPedido)}</Typography> 
                     </div>

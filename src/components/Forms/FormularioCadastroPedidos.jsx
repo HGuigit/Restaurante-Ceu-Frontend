@@ -9,6 +9,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 
+
 // ------------------------------------------------------- //
 
 import axios from '../../services/api';
@@ -66,9 +67,9 @@ const CadastroPedidosForm = (props) => {
           <Autocomplete
             getOptionLabel={option => option.comandaCode}
             disablePortal
+            fullWidth
             id="combo-box-demo"
             options={props.comandas}
-            sx={{ width: 600 }}
             renderInput={(params) => <TextField {...params} label="Comanda" />}
             value={Comanda}
             onChange={(_event, newComand) => {
@@ -81,9 +82,9 @@ const CadastroPedidosForm = (props) => {
           <Autocomplete
             getOptionLabel={option => option.nome}
             disablePortal
+            fullWidth
             id="combo-box-demo"
             options={props.funcionarios}
-            sx={{ width: 600 }}
             renderInput={(params) => <TextField {...params} label="Funcionário" />}
             value={Funcionario}
             onChange={(_event, newWorker) => {

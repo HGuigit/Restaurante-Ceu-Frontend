@@ -10,6 +10,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { useEffect } from 'react';
 import { color } from '@mui/system';
 import getInitColorSchemeScript from '@mui/system/cssVars/getInitColorSchemeScript';
+import Plot from 'react-plotly.js';
 
 
 function calculateHeaderMetrics(pedidos, receitas, funcionarios, inicio, fim){
@@ -20,6 +21,9 @@ function calculateHeaderMetrics(pedidos, receitas, funcionarios, inicio, fim){
     
     let mediaAvaliacoes = 0;
     let somaAvaliacoes = 0;
+
+    console.log(inicio);
+    console.log(fim);
 
     pedidos.forEach((pedido) => {
         if(pedido.dataHora != null){
@@ -85,8 +89,6 @@ function calculateFuncionarioRating(pedidos, funcionarios, inicio, fim){
     funcionariosNameMap.forEach((value, key) => {arrayNomes.push(value)})
     funcionariosMapRating.forEach((value, key) => {arrayValues.push(value)}) 
 
-    console.log(arrayNomes);
-    console.log(arrayValues);
     return(
         {
             nomeFunc: arrayNomes, 
@@ -128,9 +130,7 @@ const [fim, setFim] = React.useState(new Date())
 const [headerMetrics, setHeaderMetrics] = React.useState({});
 const [graphMetrics, setGraphMetris] = React.useState(null);
 
-console.log(graphMetrics);
-
-
+console.log(graphMetrics)
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 useEffect(() => {
@@ -154,12 +154,13 @@ const handleChange = (event) => {
 
 
 return(
-    <div style={{display:'flex', flexDirection:"column", justifyContent:'center'}}>
-        <Box sx={{ minWidth: 120 }}>
+    <div style={{display:'flex', flexDirection:"column", justifyContent:'center', alignItems:"center"}}>
+        <Box sx={{width: '100%'}}>
             <FormControl fullWidth >
                 <InputLabel id="demo-simple-select-label">Tempo das métricas</InputLabel>
                 <Select
                 labelId="demo-simple-select-label"
+                fullWidth
                 id="demo-simple-select"
                 value={meses}
                 label="Age"
@@ -195,6 +196,22 @@ return(
              </ListItem>
             </List>
         </Paper>
+        <Box mt={5} fullWidth sx={{ width: '100%'}}>
+            <Plot
+                data={[
+                {
+                 type: 'bar',
+                 x: graphMetrics ? graphMetrics.funcionarioRating.nomeFunc : [],
+                 y: graphMetrics ? graphMetrics.funcionarioRating.Rating : [],
+                 marker: {
+                    color: '#ff5e6c'
+                 }
+                },
+                ]}
+                layout={ {width: 1000, height: 800, title: 'Avaliação dos funcionários', plot_bgcolor:'white', paper_bgcolor: 'white'}}
+            
+            />
+        </Box>
         
 
     </div>   

@@ -14,7 +14,7 @@ export default function RecipeReviewCard({ receitas }) {
         {recipes.length !== 0 ? 
           recipes.map((recipe, index) => (
             <Grid item xs={3} mb={3} key={index}>
-              <Card sx={{ maxWidth: 400, maxHeight: 600 ,boxSizing: 'border-box' }}>
+              <Card sx={{ maxWidth: 400, maxHeight: 490 ,boxSizing: 'border-box', overflowY:'auto' }}>
                 <CardHeader
                   title={recipe.nome}
                   sx={{fontWeight:"bolder"}}

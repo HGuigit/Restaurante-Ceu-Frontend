@@ -16,7 +16,7 @@ export default function FuncionarioCard ({ funcionarios }) {
             let data = new Date(worker.dataContratacao)
             return(
             <Grid item xs={3} mb={3} key={index}>
-              <Card sx={{ maxWidth: 400, maxHeight: 600 ,boxSizing: 'border-box' }}>
+              <Card sx={{ maxWidth: 400, maxHeight: 600 ,boxSizing: 'border-box', overflowY:'auto' }}>
                 <CardHeader
                   title={worker.nome}
                   sx={{fontWeight:"bolder"}}
